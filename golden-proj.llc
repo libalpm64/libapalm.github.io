@@ -1,0 +1,10 @@
+{
+  version: 1,
+  mediaFileName: 'golden.mp4',
+  cutSegments: [
+    {
+      end: 192.99132187499998,
+      name: '',
+    },
+  ],
+}
