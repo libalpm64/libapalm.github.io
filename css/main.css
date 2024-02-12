@@ -225,6 +225,18 @@ p {
     height: 30px;
     line-height: 15px;
 }
+.label3 {
+    padding: 1px 3px 2px;
+    font-size: 8px;
+    font-weight: bold;
+    color: #ffffff;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border-radius: 3px;
+    text-decoration: none;
+    height: 30px;
+    line-height: 15px;
+}
 span.add-label {
     display: none;
 }
