@@ -1,6 +1,6 @@
 const staticTexts = [
 "JVKE - Golden Hour",
-"Libalpm - Your Cybersecurity wewale.",
+"Libalpm - Your Cybersecurity weeb.",
 "Active exploits: x64_86, arm5, shells.",
 "OSINIT enthusiast, Zer0day is the way.",
 "Linux Ethuatist"
