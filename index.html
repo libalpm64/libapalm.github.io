@@ -1,39 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" onclick="toggleMute()">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link rel="icon" type="image/png" href="favicon.ico">
-<link href="css/main.css" rel="stylesheet">
-<title>Lialpm</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/png" href="favicon.ico">
+    <link href="css/main.css" rel="stylesheet">
+    <title>Lialpm</title>
 </head>
 <body>
-<div id="page">
-<br>
-<div class="TextMain4">Libalpm</div>
-<div class="item">
-  <a href="https://Libalpm.dev">
-    <p id="rotatingTextContainer" class="label success new-label">
-    </p>
-  </a>
-  <p id="rotatingTextContainer" class="label3 success new-label">Live Life with what you love not what you need - Libapalm</p>
-</div>
-<div id="currentSongContainer"></div>
-<video autoplay="" muted="" loop="" id="myVideo">
-    <source id="videoSource" type="video/mp4">
-  </video>
-</div>
+  </div>
+    <video autoplay="" muted="" loop="" id="myVideo">
+        <source id="videoSource" type="video/mp4">
+      </video>
+      <div id="currentSongContainer"></div>
+  <div id="page">   
+    <br>
+    <div class="TextMain4">Libalpm</div>
+    <div class="item">
+      <a href="https://Libalpm.dev">
+        <p id="rotatingTextContainer" class="label success new-label">
+        </p>
+      </a>
+      <p id="rotatingTextContainer" class="label3 success new-label">Live Life with what you love not what you need - Libapalm</p>
+    </div>
+  <script>
+    
+    window.onload = function() {
+      rotateText();
+      updateCurrentTime();
+    };
+  </script>
+
+
+
 <div id="scroll-container">
-<marquee id="emoji-marquee" behavior="scroll" direction="left" onmouseover="stopMarquee();" onmouseout="startMarquee();">
-    <span class="emoji">😀</span>
-    <a href="https://github.com/libalpm64" target="_blank">GitHub</a>
-    <span class="emoji">😀</span>
-    <a href="https://t.me/libalpm" target="_blank">Telegram</a>
-    <span class="emoji">😀</span>
-    <a href="https://blog.libalpm.dev/" target="_blank">Blog</a>
-    <span class="emoji">😀</span>
-</marquee>
+    <marquee id="emoji-marquee" behavior="scroll" direction="left" onmouseover="stopMarquee();" onmouseout="startMarquee();">
+        <span class="emoji">😀</span>
+        <a href="https://github.com/libalpm64" target="_blank">GitHub</a>
+        <span class="emoji">😀</span>
+        <a href="https://t.me/libalpm" target="_blank">Telegram</a>
+        <span class="emoji">😀</span>
+        <a href="https://blog.libalpm.dev/" target="_blank">Blog</a>
+        <span class="emoji">😀</span>
+    </marquee>
+</div>
 </div>
 <script type="text/javascript">
 
