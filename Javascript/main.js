@@ -5,33 +5,35 @@ const staticTexts = [
 "Linux Ethuatist"
 ];
 
-const songNames = [
-  "JVKE - Golden Hour", 
-  "Lil Peep - Downtown" 
+const songs = [
+  { name: "JVKE - Golden Hour", video: "https://hugh.cdn.rumble.cloud/video/s8/2/6/Y/x/T/6YxTp.haa.mp4" },
+  { name: "Lil Peep - Downtown", video: "https://hugh.cdn.rumble.cloud/video/s8/2/Q/A/1/V/QA1Vp.baa.mp4" }
 ];
 
 let currentIndex = 0;
 
 function rotateText() {
-    const rotatingTextContainer = document.getElementById('rotatingTextContainer');
-    if (!rotatingTextContainer) return;
+  const rotatingTextContainer = document.getElementById('rotatingTextContainer');
+  if (!rotatingTextContainer) return;
 
-    let textToShow = '';
+  let textToShow = '';
 
-    if (currentIndex < staticTexts.length) {
-        textToShow = staticTexts[currentIndex];
-    } else if (currentIndex < staticTexts.length + songNames.length) {
-        const songIndex = currentIndex - staticTexts.length;
-        textToShow = songNames[songIndex];
-    } else {
-        textToShow = getCurrentTime();
-    }
+  if (currentIndex < staticTexts.length) {
+    textToShow = staticTexts[currentIndex];
+  } else if (currentIndex < staticTexts.length + songs.length) {
+    const songIndex = currentIndex - staticTexts.length;
+    textToShow = songs[songIndex].name;
+    const link = songs[songIndex].video;
+    textToShow = `<a href="${link}" target="_blank">${textToShow}</a>`;
+  } else {
+    textToShow = getCurrentTime();
+  }
 
-    rotatingTextContainer.textContent = textToShow;
+  rotatingTextContainer.innerHTML = textToShow;
 
-    currentIndex = (currentIndex + 1) % (staticTexts.length + songNames.length + 1);
+  currentIndex = (currentIndex + 1) % (staticTexts.length + songs.length + 1);
 
-    setTimeout(rotateText, 5000);
+  setTimeout(rotateText, 5000);
 }
   
 function getCurrentTime() {
