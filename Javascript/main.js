@@ -113,8 +113,8 @@ updateMarquee();
 });
 
 const videos = [
-    "https://hugh.cdn.rumble.cloud/video/s8/2/6/Y/x/T/6YxTp.haa.mp4",
-    "https://hugh.cdn.rumble.cloud/video/s8/2/Q/A/1/V/QA1Vp.baa.mp4",
+  "https://hugh.cdn.rumble.cloud/video/s8/2/6/Y/x/T/6YxTp.haa.mp4",
+  "https://hugh.cdn.rumble.cloud/video/s8/2/Q/A/1/V/QA1Vp.baa.mp4",
 ];
 
 function randomVideo() {
