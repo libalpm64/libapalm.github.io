@@ -20,21 +20,19 @@ function rotateText() {
 
     if (currentIndex < staticTexts.length) {
         textToShow = staticTexts[currentIndex];
-    } else if (currentIndex === staticTexts.length) {
-        textToShow = songNames[currentIndex - staticTexts.length]; // Display current song name 
-    } else { // currentIndex === staticTexts.length + 1
+    } else if (currentIndex < staticTexts.length + songNames.length) {
+        const songIndex = currentIndex - staticTexts.length;
+        textToShow = songNames[songIndex];
+    } else {
         textToShow = getCurrentTime();
     }
 
-    rotatingTextContainer.textContent = textToShow; // Set the text content
+    rotatingTextContainer.textContent = textToShow;
 
-    // Update the currentIndex for the next rotation, reset to 0 if at the end
-    currentIndex = (currentIndex + 1) % (staticTexts.length + 2);
+    currentIndex = (currentIndex + 1) % (staticTexts.length + songNames.length + 1);
 
-    // Set the next call of rotateText
-    setTimeout(rotateText, 5000); // Switch every 5 seconds
+    setTimeout(rotateText, 5000);
 }
-
   
 function getCurrentTime() {
     const currentTime = new Date();
