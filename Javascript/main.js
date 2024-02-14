@@ -13,25 +13,28 @@ const songNames = [
 let currentIndex = 0;
 
 function rotateText() {
-const rotatingTextContainer = document.getElementById('rotatingTextContainer');
-if (!rotatingTextContainer) return;
+    const rotatingTextContainer = document.getElementById('rotatingTextContainer');
+    if (!rotatingTextContainer) return;
 
-let textToShow = '';
+    let textToShow = '';
 
-if (currentIndex < staticTexts.length) {
-    textToShow = staticTexts[currentIndex];
-} else if (currentIndex === staticTexts.length) {
-    textToShow = songNames[currentIndex - staticTexts.length]; // Display current song name 
-} else { // currentIndex === staticTexts.length + 1
-    textToShow = getCurrentTime();
+    if (currentIndex < staticTexts.length) {
+        textToShow = staticTexts[currentIndex];
+    } else if (currentIndex === staticTexts.length) {
+        textToShow = songNames[currentIndex - staticTexts.length]; // Display current song name 
+    } else { // currentIndex === staticTexts.length + 1
+        textToShow = getCurrentTime();
+    }
+
+    rotatingTextContainer.textContent = textToShow; // Set the text content
+
+    // Update the currentIndex for the next rotation, reset to 0 if at the end
+    currentIndex = (currentIndex + 1) % (staticTexts.length + 2);
+
+    // Set the next call of rotateText
+    setTimeout(rotateText, 5000); // Switch every 5 seconds
 }
 
-// Update the currentIndex for the next rotation, reset to 0 if at the end
-currentIndex = (currentIndex + 1) % (staticTexts.length + 2);
-
-// Set the next call of rotateText
-setTimeout(rotateText, 5000); // Switch every 5 seconds
-}
   
 function getCurrentTime() {
     const currentTime = new Date();
