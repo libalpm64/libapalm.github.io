@@ -1,9 +1,13 @@
 const staticTexts = [
-"JVKE - Golden Hour",
 "Libalpm - Your Cybersecurity weeb.",
 "Active exploits: x64_86, arm5, shells.",
 "OSINIT enthusiast, Zer0day is the way.",
 "Linux Ethuatist"
+];
+
+const songNames = [
+  "JVKE - Golden Hour", 
+  "Lil Peep - Downtown" 
 ];
 
 let currentIndex = 0;
@@ -12,22 +16,18 @@ function rotateText() {
 const rotatingTextContainer = document.getElementById('rotatingTextContainer');
 if (!rotatingTextContainer) return;
 
-// Determine the text to show based on the currentIndex
-let textToShow;
+let textToShow = '';
+
 if (currentIndex < staticTexts.length) {
     textToShow = staticTexts[currentIndex];
-    rotatingTextContainer.textContent = textToShow; // Set text content for static text
-    rotatingTextContainer.classList.remove('add-label'); // Remove the clock class
-    rotatingTextContainer.classList.add('label', 'success', 'new-label'); // Remove the label classes
-} else {
+} else if (currentIndex === staticTexts.length) {
+    textToShow = songNames[currentIndex - staticTexts.length]; // Display current song name 
+} else { // currentIndex === staticTexts.length + 1
     textToShow = getCurrentTime();
-    rotatingTextContainer.textContent = textToShow; // Set text content for current time
-    rotatingTextContainer.classList.add('add-label'); // Add the clock class
-    rotatingTextContainer.classList.add('label', 'success', 'new-label'); // Remove the label classes
 }
 
 // Update the currentIndex for the next rotation, reset to 0 if at the end
-currentIndex = (currentIndex + 1) % (staticTexts.length + 1);
+currentIndex = (currentIndex + 1) % (staticTexts.length + 2);
 
 // Set the next call of rotateText
 setTimeout(rotateText, 5000); // Switch every 5 seconds
@@ -128,6 +128,10 @@ function randomVideo() {
     // Load and play the new video
     videoPlayer.load();
     videoPlayer.play();
+    const songNameElement = document.getElementById('songName');
+    if (songNameElement) {
+      songNameElement.textContent = songNames[randomIndex];
+    }
 }
 document.getElementById('myVideo').addEventListener('ended', randomVideo);
 document.addEventListener('DOMContentLoaded', randomVideo);
