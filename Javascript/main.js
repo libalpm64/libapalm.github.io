@@ -55,7 +55,7 @@ function getCurrentTime() {
 var i=0;
 setInterval(function(){
 var titles=[
-"[Golden Hour] --> Libalpm.Dev",
+"| --> Libalpm.Dev <--- |",
 "Libalpm | Dev",
 "Libalpm | Bored Linux Ethauist",
 "Libalpm | Love from Dayton, OH."
