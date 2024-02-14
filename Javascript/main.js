@@ -108,3 +108,27 @@ marqueeElement.stop();
 document.addEventListener("DOMContentLoaded", function () {
 updateMarquee();
 });
+
+const videos = [
+    "https://hugh.cdn.rumble.cloud/video/s8/2/6/Y/x/T/6YxTp.haa.mp4",
+    "https://hugh.cdn.rumble.cloud/video/s8/2/Q/A/1/V/QA1Vp.baa.mp4",
+];
+
+function randomVideo() {
+    const videoPlayer = document.getElementById('myVideo');
+    const videoSource = document.getElementById('videoSource');
+    
+    // Select a random video URL from the videos array
+    const randomIndex = Math.floor(Math.random() * videos.length);
+    const randomVideoUrl = videos[randomIndex];
+    
+    // Set the random video URL to the video source `src` attribute
+    videoSource.src = randomVideoUrl;
+    
+    // Load and play the new video
+    videoPlayer.load();
+    videoPlayer.play();
+}
+document.getElementById('myVideo').addEventListener('ended', randomVideo);
+document.addEventListener('DOMContentLoaded', randomVideo);
+
