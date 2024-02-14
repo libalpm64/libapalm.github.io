@@ -58,7 +58,7 @@ var titles=[
 "[Golden Hour] --> Libalpm.Dev",
 "Libalpm | Dev",
 "Libalpm | Bored Linux Ethauist",
-"Libalpm | 23F From Chicago"
+"Libalpm | Love from Dayton, OH."
 ]
 
 if(i===titles.length) {
