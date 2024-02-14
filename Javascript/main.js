@@ -120,22 +120,19 @@ const videos = [
 function randomVideo() {
     const videoPlayer = document.getElementById('myVideo');
     const videoSource = document.getElementById('videoSource');
-    
-    // Select a random video URL from the videos array
-    const randomIndex = Math.floor(Math.random() * videos.length);
-    const randomVideoUrl = videos[randomIndex];
-    
-    // Set the random video URL to the video source `src` attribute
+    const randomVideoIndex = Math.floor(Math.random() * videos.length);
+    const randomVideoUrl = videos[randomVideoIndex];
     videoSource.src = randomVideoUrl;
-    
-    // Load and play the new video
     videoPlayer.load();
     videoPlayer.play();
+    const randomSongIndex = Math.floor(Math.random() * songNames.length);
     const songNameElement = document.getElementById('songName');
     if (songNameElement) {
-      songNameElement.textContent = songNames[randomIndex];
+        songNameElement.textContent = songNames[randomSongIndex];
     }
 }
+
 document.getElementById('myVideo').addEventListener('ended', randomVideo);
 document.addEventListener('DOMContentLoaded', randomVideo);
+
 
