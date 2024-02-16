@@ -29,9 +29,10 @@ function rotateText() {
 
   rotatingTextContainer.innerHTML = textToShow;
 
-  currentIndex = (currentIndex + 1) % (staticTexts.length);
+  currentIndex = (currentIndex + 1) % (staticTexts.length + 1);
 
-  setTimeout(rotateText, 5000);
+
+  setTimeout(rotateText, 2000);
 }
   
 function getCurrentTime() {
