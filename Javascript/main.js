@@ -7,7 +7,10 @@ const staticTexts = [
 
 const songs = [
   { name: "JVKE - Golden Hour", video: "https://hugh.cdn.rumble.cloud/video/s8/2/6/Y/x/T/6YxTp.haa.mp4" },
-  { name: "Lil Peep - Downtown", video: "https://hugh.cdn.rumble.cloud/video/s8/2/Q/A/1/V/QA1Vp.baa.mp4" }
+  { name: "Lil Peep - Downtown", video: "https://hugh.cdn.rumble.cloud/video/s8/2/Q/A/1/V/QA1Vp.baa.mp4" },
+  { name: "xx", video: "https://hugh.cdn.rumble.cloud/video/s8/2/J/7/m/Y/J7mYp.caa.mp4" },
+  { name: "xx", video: "https://hugh.cdn.rumble.cloud/video/s8/2/t/5/m/Y/t5mYp.caa.mp4" }
+  
 ];
 
 let currentIndex = 0;
@@ -20,18 +23,13 @@ function rotateText() {
 
   if (currentIndex < staticTexts.length) {
     textToShow = staticTexts[currentIndex];
-  } else if (currentIndex < staticTexts.length + songs.length) {
-    const songIndex = currentIndex - staticTexts.length;
-    textToShow = songs[songIndex].name;
-    const link = songs[songIndex].video;
-    textToShow = `<a href="${link}" target="_blank">${textToShow}</a>`;
   } else {
     textToShow = getCurrentTime();
   }
 
   rotatingTextContainer.innerHTML = textToShow;
 
-  currentIndex = (currentIndex + 1) % (staticTexts.length + songs.length + 1);
+  currentIndex = (currentIndex + 1) % (staticTexts.length);
 
   setTimeout(rotateText, 5000);
 }
