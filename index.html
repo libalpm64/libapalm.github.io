@@ -13,7 +13,16 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied'
+  });
+  gtag('consent', 'update', {
+    'ad_user_data': 'granted',
+    'ad_personalization': 'granted'
+  });
+  gtag('set', 'url_passthrough', true);
+  gtag('set', 'ads_data_redaction', true);
   gtag('config', 'G-L48RE2Z6KP');
 </script>
 
