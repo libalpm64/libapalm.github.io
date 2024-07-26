@@ -59,7 +59,8 @@ setInterval(function(){
 var titles=[
 "| --> Libalpm.Dev <--- |",
 "Libalpm | Dev",
-"Libalpm | Bored Linux Ethauist"
+"Libalpm | Bored Linux Ethauist",
+"Libalpm | Love from Dayton, OH."
 ]
 
 if(i===titles.length) {
