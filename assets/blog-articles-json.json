@@ -108,6 +108,231 @@
           "content": "P.S. Check out the official repo in case anything changes: https://gitlab.com/yawning/obfs4"
         }
       ]
+    },
+    {
+      "id": 2,
+      "title": "CCNA3 NAT: Network Address Translation",
+      "author": "Libalpm",
+      "date": "September 29, 2024",
+      "bannerImage": "assets/nat-issue-modern-warfare-2.jpg",
+      "content": [
+        {
+          "type": "p",
+          "content": "Can't play Modern Warfare 2? Better off anyway. (I'm kidding it's because I found it funny strict NAT's won't let you play MW2) Well while you're here learn about NAT. (I'm really not funny...)"
+        },
+        {
+          "type": "h2",
+          "content": "NAT CCNA3:"
+        },
+        {
+          "type": "p",
+          "content": "There are not enough IPv4 addresses to assign a unique address to each device connected to the internet. (This is obvious as defined in RFC 1918)"
+        },
+        {
+          "type": "p",
+          "content": "NAT's primary use is to conserve public IPv4 addresses. It does this by using private IPv4 addresses internally and providing translations when necessary."
+        },
+        {
+          "type": "p",
+          "content": "It can be a shield for privacy and security to a network. (Comment: NAT prevents port forwarding and uses a shared pool so basically multiple are sharing the same IPv4 address meaning it's a lot harder for a company to track you based on your IPv4)"
+        },
+        {
+          "type": "p",
+          "content": "NAT Enabled routers can be configured with one or more valid IPv4 Addresses and are contained into something called a NAT pool."
+        },
+        {
+          "type": "p",
+          "content": "A NAT router in most cases operates at the border of a stub network. A stub network is one or more networks with a single connection to its neighboring network. (You can actually see this in real life look on BGP tools for the tag Stub_AS short for Stub network ASN)"
+        },
+        {
+          "type": "h2",
+          "content": "How NAT works:"
+        },
+        {
+          "type": "p",
+          "content": "private IP (Inside Local) -> Your gateway router (Inside Global) -> The next hop router (Outside local) -> Destination ex. Server (Outside Global)"
+        },
+        {
+          "type": "h2",
+          "content": "NAT Terminology:"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Inside address - The address of the device which is being translated by NAT.",
+            "Outside address - The address of the destination device.",
+            "Local address - A local address is any address that appears on the inside portion of the network.",
+            "Global address - A global address is any address that appears on the outside portion of the network."
+          ]
+        },
+        {
+          "type": "h2",
+          "content": "Types of NAT"
+        },
+        {
+          "type": "h3",
+          "content": "Static NAT:"
+        },
+        {
+          "type": "p",
+          "content": "Static NAT uses a one-to-one mapping of local and global addresses. These mappings are configured by the network administrator and remain constant."
+        },
+        {
+          "type": "h3",
+          "content": "Dynamic NAT:"
+        },
+        {
+          "type": "p",
+          "content": "Dynamic NAT uses a pool of public addresses and assigns them on a first-come, first-served basis. When an inside device requests access to an outside network, dynamic NAT assigns an available public IPv4 address from the pool."
+        },
+        {
+          "type": "h3",
+          "content": "Port Address Translation (PAT):"
+        },
+        {
+          "type": "p",
+          "content": "Also known as NAT overload, maps multiple private IPv4 addresses to a single public IPv4 address or a few addresses. This allows several devices in the household to simultaneously access the internet. Used by ISPs. Multiple addresses can be mapped to one or to a few addresses in the setup; each port number is tracked to each assigned private address. It generates a TCP/UDP source port value or assigns a query ID for ICMP to identify the session."
+        },
+        {
+          "type": "p",
+          "content": "PAT does a best-effort setup to preserve the original source port. However, if used, PAT assigns the first available port number starting from: 0-511, 512-1023, 1024-65535. When it has run out of ports, it moves to the next address to allocate the original source port."
+        },
+        {
+          "type": "h2",
+          "content": "Differences between NAT and PAT:"
+        },
+        {
+          "type": "h3",
+          "content": "NAT:"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "One-to-one mapping between Inside Local and Inside Global addresses.",
+            "Uses only IPv4 addresses in translation process.",
+            "A unique Inside Global address is required for each inside host accessing the outside network."
+          ]
+        },
+        {
+          "type": "p",
+          "content": "Example:"
+        },
+        {
+          "type": "code",
+          "content": "Inside Global Address    Inside Local Address\n209.165.200.226          192.168.10.10\n209.165.200.227          192.168.10.11\n209.165.200.228          192.168.10.12\n209.165.200.229          192.168.10.13"
+        },
+        {
+          "type": "p",
+          "content": "Comment: Basically only one internal address can be assigned to the default gateway (router)."
+        },
+        {
+          "type": "h3",
+          "content": "PAT:"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "One Inside Global address can be mapped to many Inside Local addresses.",
+            "Uses IPv4 addresses and TCP or UDP source port numbers in translation process.",
+            "A single unique Inside Global address can be shared by many inside hosts accessing the outside network."
+          ]
+        },
+        {
+          "type": "p",
+          "content": "Example:"
+        },
+        {
+          "type": "code",
+          "content": "Inside Global Address    Inside Local Address\n209.165.200.226:2031     192.168.10.10:2031\n209.165.200.226:1506     192.168.10.11:1506\n209.165.200.226:1131     192.168.10.12:1131\n209.165.200.226:1718     192.168.10.13:1718"
+        },
+        {
+          "type": "p",
+          "content": "Comment: Allows for multiple private addresses to use the same exact default gateway by making use of their source ports. To be honest, using regular NAT is pointless; PAT on top."
+        },
+        {
+          "type": "h2",
+          "content": "NAT Advantages"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Privatizes our intranets (Comment: Cisco had a weird way of saying it was like legally registered addressing scheme; basically we are taking our private IP addresses in the subnet can share the same IP. I don't know why they try to make it as complicated as possible)",
+            "May increase the flexibility of connections to the public network. Multiple pools, backup pools, load-balancing. (Comment: Basically you get a better network because the ISP may include certain setups to decrease latency and multiple IP addresses in case one is being overused)",
+            "Removes readdressing of all hosts on the existing network. (Comment: if your network didn't use private addresses you'd have to manually update all IP addresses on every device; NAT eliminates this by keeping all IP addresses consistent, they don't change)"
+          ]
+        },
+        {
+          "type": "h2",
+          "content": "NAT Disadvantages"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Real-time protocols such as VoIP. NAT increases forwarding delays with the packets headers take time, The router must look at all packets the checksum must be recalculated. (Comment: No really Cisco? A 5th grader could figure that out.)",
+            "Many ISPs are having to assign customers a private IPv4 address instead of a public IPv4 address. Also known as CG-NAT (Carrier-Grade NAT)",
+            "End-to-End addressing is lost; many protocols depend on End-to-End addressing. (Comment: For example, if you try to host a Web server or Minecraft server it ain't happening; use Cloudflare tunnels to fix this, it's free. I've seen a Minecraft server run on a Cloudflare tunnel; it's quite interesting the trick they used to make that work. I may make an article on how they did it)",
+            "Makes troubleshooting challenging because it's harder to trace packets that go through multiple address translations.",
+            "Complicates the use of tunneling protocols such as IPSec (It prevents creating like an IPSec tunnel (An IPSec Tunnel is basically a VPN as it encrypted L3 IP packets) that allows certain access to like a VLAN or a network services; NAT prevents that as you can't remote into a private/reserved IP address)"
+          ]
+        },
+        {
+          "type": "h2",
+          "content": "Configuring NAT"
+        },
+        {
+          "type": "h3",
+          "content": "Static NAT Configuration"
+        },
+        {
+          "type": "code",
+          "content": "(config)# ip nat inside source static 192.168.10.254 209.165.201.5\n(config)# interface serial 0/1/0\n(config-if)# ip address 192.168.1.2 255.255.255.252\n(config-if)# ip nat inside\n(config)# interface serial 0/1/1\n(config-if)# ip address 209.165.200.1 255.255.255.252\n(config-if)# ip nat outside"
+        },
+        {
+          "type": "p",
+          "content": "Basically what is happening here is Serial0/1/0 is facing our local network and serial0/1/1 is facing the next hop router."
+        },
+        {
+          "type": "h3",
+          "content": "Dynamic NAT Configuration"
+        },
+        {
+          "type": "code",
+          "content": "(config)# ip nat pool NAT-POOL1 209.165.200.226 209.165.200.240 netmask 255.255.255.224\n(config)# access-list 1 permit 192.168.0.0 0.0.255.255\n(config)# ip nat inside source list 1 pool NAT-POOL1"
+        },
+        {
+          "type": "p",
+          "content": "Dynamic NAT is the same thing but we use POOLs instead pools contain multiple public IP addresses. In this case from the range .226-240."
+        },
+        {
+          "type": "h3",
+          "content": "PAT Configuration"
+        },
+        {
+          "type": "code",
+          "content": "(config)# ip nat pool NAT-POOL2 209.165.200.226 209.165.200.240 netmask 255.255.255.224\n(config)# access-list 1 permit 192.168.0.0 0.0.255.255\n(config)# ip nat inside source list 1 pool NAT-POOL2 overload\n(config)# interface serial0/1/0\n(config-if)# ip nat inside\n(config-if)# exit\n(config)# interface serial0/1/1\n(config-if)# ip nat outside\n(config-if)# end"
+        },
+        {
+          "type": "p",
+          "content": "We are now using a NAT Pool then we are applying an ACL to permit the local network (the 192.168.0.0/16 basically is whatever your DHCP server is handing out) and configuring the router and local network directions inside / outside."
+        },
+        {
+          "type": "h2",
+          "content": "NAT64: NAT for IPv6"
+        },
+        {
+          "type": "p",
+          "content": "NAT64 for IPv6 is actually used for providing access between IPv6-only and IPv4-only networks, fascinating right?"
+        },
+        {
+          "type": "p",
+          "content": "It uses IPv6's Dual Stack feature when devices are running protocols associated with IPv6 and IPv4. It basically encapsulates the IPv6 packet inside an IPv4 packet, allowing the IPv6 packet to be transmitted over an IPv4-only network."
+        },
+        {
+          "type": "p",
+          "content": "It only serves as a temporary mechanism to assist the migration from IPv4 to IPv6."
+        }
+      ]
     }
+
   ]
 }
