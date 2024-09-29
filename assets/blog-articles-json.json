@@ -827,6 +827,115 @@
           ]
         }
       ]
-    }
+    },
+    {
+      "id": 4,
+      "title": "DPDK (Data Plane Development Kit) vs. XDP (exPRESS Data Path)",
+      "author": "Libalpm",
+      "date": "September 30, 2024",
+      "bannerImage": "assets/XDP-DPDK.jpg",
+      "content": [
+        {
+          "type": "h2",
+          "content": "XDP (exPRESS Data Path)"
+        },
+        {
+          "type": "p",
+          "content": "XDP is an eBPF (extended Berkeley Packet Filter)-based high-performance data path used to send and receive network packets at high rates by bypassing most of the operating system's networking stack. It does this by being directly implemented in the Linux, Windows, and BSD kernels."
+        },
+        {
+          "type": "p",
+          "content": "XDP uses early hooks in the RX path of the kernel to let the XDP program compiled and assigned to an interface decide the fate of the packet. It does this before any memory allocation needs to be made by the network stack itself. XDP can drop ~27-35 million PPS with basic hardware."
+        },
+        {
+          "type": "p",
+          "content": "Before you can assign an eBPF program, it checks that the program contains no out-of-bounds accesses (out of the scope of the operating system), loops, or global variables."
+        },
+        {
+          "type": "p",
+          "content": "Here are the options you can specify in the eBPF program:"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "XDP_PASS: let the packet continue through the network stack.",
+            "XDP_DROP: silently drop the packet.",
+            "XDP_ABORTED: drop the packet with trace point exception.",
+            "XDP_TX: bounce the packet back to the same NIC it arrived on.",
+            "XDP_REDIRECT: redirect the packet to another NIC or user space socket via the AF_XDP address family."
+          ]
+        },
+        {
+          "type": "p",
+          "content": "The eBPF program is loaded on the XDP stack and tells it the instructions if the type of packet is matched."
+        },
+        {
+          "type": "p",
+          "content": "It can be especially useful for high-performance observability tools, load balancers, firewalls, and DDoS protection. Perhaps most importantly, it’s fairly easy to create and load an XDP program with the help of existing libraries, such as the BCC framework [https://github.com/iovisor/bcc], as well as XDP’s rich toolset [https://github.com/xdp-project/xdp-tools]."
+        },
+        {
+          "type": "p",
+          "content": "Drawbacks of using XDP:"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "XDP is primarily supported on specific hardware and NICs.",
+            "Performance Overhead: While an XDP program is designed for high performance, poor optimization ultimately leads to performance degradation.",
+            "Lack of Standardization: You have to keep note of what kernel you're using; otherwise, you're going to have compatibility issues.",
+            "Lack of foundation: By default, XDP is stateless; you will need additional use of eBPF maps to maintain the state packets are in."
+          ]
+        },
+        {
+          "type": "h2",
+          "content": "DPDK (Data Plane Development Kit)"
+        },
+        {
+          "type": "p",
+          "content": "DPDK is an open-source project managed by the Linux Foundation. It provides data plane libraries and an NIC polling mode driver for offloading TCP packet processing from the operating system kernel to processes running in user space."
+        },
+        {
+          "type": "p",
+          "content": "So what's all the fuss?"
+        },
+        {
+          "type": "p",
+          "content": "DPDK bypasses the kernel and uses drivers (Polling Mode Drivers, or PMDs) that interact directly with the hardware, allowing direct hardware packet processing."
+        },
+        {
+          "type": "p",
+          "content": "It allows the speed to perhaps be however fast as your NIC, DPDK can handle more than 100 million PPS!"
+        },
+        {
+          "type": "p",
+          "content": "DPDK achieves very high PPS rates, making it the absolute best method for cost-efficient DDoS mitigation, firewalls, load balancing, etc."
+        },
+        {
+          "type": "p",
+          "content": "DPDK can process packets in real time and process the volume of incoming packets."
+        },
+        {
+          "type": "p",
+          "content": "DPDK can do real-time traffic shaping, analysis, and response to traffic patterns and can do heuristics, which makes it better than XDP programs."
+        },
+        {
+          "type": "p",
+          "content": "DPDK by default can facilitate DPI (deep packet inspection) to analyze the content of packets and identify patterns inside the packet; it reads not only the headers but also the data fields."
+        },
+        {
+          "type": "p",
+          "content": "Drawbacks of using DPDK:"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "DPDK requires expert-level knowledge of hardware and networking. Developers need to manually manage memory, CPU affinity, and thread management.",
+            "DPDK cannot be run on VPS's (Virtual Private Servers); it has to be run on dedicated CPU cores and memory; there is no virtualization allowed.",
+            "DPDK doesn't support certain protocols.",
+            "Vendor-specific Optimizations: DPDK's performance all depends on whoever your hardware manufacturer is and how good they are at coding NICs."
+          ]
+        }
+      ]
+    }    
   ]
 }
