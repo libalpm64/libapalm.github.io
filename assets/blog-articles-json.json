@@ -1,0 +1,113 @@
+{
+  "articles": [
+    {
+      "id": 1,
+      "title": "OBFS4: The freedom protocol.",
+      "author": "Libalpm",
+      "date": "September 28, 2024",
+      "bannerImage": "https://wallpaperaccess.com/full/1101225.jpg",
+      "content": [
+        {
+          "type": "h2",
+          "content": "OBFS4 proxy"
+        },
+        {
+          "type": "p",
+          "content": "Obfs4 disguises your internet traffic. It's built on the obfsproxy framework and works with the Tor network. Obfs4 masks your traffic to look legit. This means Deep Packet Inspection (DPI) systems can't easily detect that you're using a VPN as it disguises itself as legit web traffic."
+        },
+        {
+          "type": "h2",
+          "content": "Why should you care?"
+        },
+        {
+          "type": "p",
+          "content": "It's useful if you're in a place where Tor or VPNs are blocked (China, Iran). By wrapping Tor traffic, you're making it much harder for anyone to figure out what you're connecting to on the network."
+        },
+        {
+          "type": "h2",
+          "content": "Setting up obfs4"
+        },
+        {
+          "type": "p",
+          "content": "Setting up the bridge server:"
+        },
+        {
+          "type": "p",
+          "content": "First, clone the repo:"
+        },
+        {
+          "type": "code",
+          "content": "git clone https://gitlab.com/yawning/obfs4.git"
+        },
+        {
+          "type": "p",
+          "content": "Build it:"
+        },
+        {
+          "type": "code",
+          "content": "go build -o obfs4proxy/obfs4proxy ./obfs4proxy"
+        },
+        {
+          "type": "p",
+          "content": "Set it as a command:"
+        },
+        {
+          "type": "code",
+          "content": "ClientTransportPlugin obfs4 exec /usr/local/bin/obfs4proxy"
+        },
+        {
+          "type": "p",
+          "content": "Now, let's configure the bridge. Add these lines to your Tor configuration:"
+        },
+        {
+          "type": "code",
+          "content": "# Act as a bridge relay.\nBridgeRelay 1\n# Enable the Extended ORPort\nExtORPort auto\n# Use obfs4proxy to provide the obfs4 protocol.\nServerTransportPlugin obfs4 exec /usr/local/bin/obfs4proxy"
+        },
+        {
+          "type": "p",
+          "content": "If you want to specify a port for obfs4 connections, uncomment and edit this line:"
+        },
+        {
+          "type": "code",
+          "content": "#ServerTransportListenAddr obfs4 0.0.0.0:443"
+        },
+        {
+          "type": "p",
+          "content": "A quick note, you'll need to tweak your client config. Add these lines:"
+        },
+        {
+          "type": "code",
+          "content": "socks-proxy 127.0.0.1 443\nsocks-proxy-retry"
+        },
+        {
+          "type": "p",
+          "content": "And modify your remote line to:"
+        },
+        {
+          "type": "code",
+          "content": "remote <YOUR-VPN-SERVER> 443"
+        },
+        {
+          "type": "p",
+          "content": "Don't forget to restart both OpenVPN and obfsproxy after making these changes."
+        },
+        {
+          "type": "h2",
+          "content": "Conclusion"
+        },
+        {
+          "type": "p",
+          "content": "And there you have it! You're now running obfs4 and giving those DPI systems a run for their money."
+        },
+        {
+          "type": "p",
+          "content": "Stay safe out there, and happy browsing!"
+        },
+        {
+          "type": "p",
+          "content": "P.S. Check out the official repo in case anything changes: https://gitlab.com/yawning/obfs4"
+        }
+      ]
+    }
+  ]
+}
