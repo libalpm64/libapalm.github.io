@@ -332,7 +332,501 @@
           "content": "It only serves as a temporary mechanism to assist the migration from IPv4 to IPv6."
         }
       ]
+    },
+    {
+      "id": 3,
+      "title": "CCNA3: WANS",
+      "author": "Libalpm",
+      "date": "September 30, 2024",
+      "bannerImage": "assets/WAN.jpg",
+      "content": [
+        {
+          "type": "p",
+          "content": "The modern WAN standards are defined by a number of authorities:"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "TIA/EIA - Telecommunications Industry Association and Electronic Industries Alliance",
+            "ISO - International Organization for Standardization",
+            "IEEE - Institute of Electrical and Electronics Engineers"
+          ]
+        },
+        {
+          "type": "p",
+          "content": "WANs operate only at the Layer 1 and Layer 2 (Physical, Data-Link)."
+        },
+        {
+          "type": "p",
+          "content": "High Optical Fiber media to span long distances use the following Fiber protocol standards:"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Synchronous Digital Hierarchy (SDH)",
+            "Synchronous Optical Networking (SONET)",
+            "Dense Wavelength Division Multiplexing (DWDM)"
+          ]
+        },
+        {
+          "type": "h2",
+          "content": "L2 Protocols:"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Broadband (i.e., DSL and Cable)",
+            "Wireless",
+            "Ethernet WAN (Metro Ethernet)",
+            "Multiprotocol Label Switching (MPLS)",
+            "Point-to-Point Protocol (PPP) (less used)",
+            "High-Level Data Link Control (HDLC) (less used)",
+            "Frame Relay (legacy)",
+            "Asynchronous Transfer Mode (ATM) (legacy)"
+          ]
+        },
+        {
+          "type": "p",
+          "content": "The WAN physical layer describes the physical connections between the company network and the service provider network."
+        },
+        {
+          "type": "h2",
+          "content": "Terminology:"
+        },
+        {
+          "type": "h3",
+          "content": "Data Terminal Equipment (DTE)"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Connects subscriber LANs to WAN communication devices (DCE).",
+            "Hosts send traffic to the DTE device.",
+            "Typically a router, but can also be a host or server.",
+            "Connects to the local loop through the DCE."
+          ]
+        },
+        {
+          "type": "h3",
+          "content": "Data Communications Equipment (DCE)"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Also known as data circuit-terminating equipment.",
+            "Communicates with the service provider.",
+            "Provides an interface for subscribers to connect to the WAN."
+          ]
+        },
+        {
+          "type": "h3",
+          "content": "Customer Premises Equipment (CPE)"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Includes DTE and DCE devices (router, modem, optical converter).",
+            "Located at the enterprise edge.",
+            "Can be owned or leased by the subscriber."
+          ]
+        },
+        {
+          "type": "h3",
+          "content": "Point-of-Presence (POP)"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "The point where the subscriber connects to the service provider network."
+          ]
+        },
+        {
+          "type": "h3",
+          "content": "Demarcation Point"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Physical location separating CPE from service provider equipment.",
+            "Typically a cabling junction box on customer premises.",
+            "Identifies the boundary for network operation responsibilities."
+          ]
+        },
+        {
+          "type": "h3",
+          "content": "Local Loop (or Last Mile)"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "The copper or fiber cable connecting CPE to the Central Office (CO) of the service provider."
+          ]
+        },
+        {
+          "type": "h3",
+          "content": "Central Office (CO)"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Local facility that connects CPE to the provider network."
+          ]
+        },
+        {
+          "type": "h3",
+          "content": "Toll Network"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Includes backhaul, long-haul, all-digital, fiber-optic communications, and related equipment within the WAN provider network."
+          ]
+        },
+        {
+          "type": "h3",
+          "content": "Backhaul Network"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Connects multiple access nodes of the service provider network.",
+            "Can span municipalities, countries, and regions.",
+            "Connected to internet service providers and the backbone network."
+          ]
+        },
+        {
+          "type": "h3",
+          "content": "Backbone Network"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Large, high-capacity networks interconnecting service provider networks.",
+            "Creates a redundant network.",
+            "Tier-1 providers can connect directly or through other service providers."
+          ]
+        },
+        {
+          "type": "h2",
+          "content": "Types of WAN Devices:"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Voiceband Modem - Also known as Dial-up internet, uses telephone lines to transmit data.",
+            "DSL/Cable Modem - Known as broadband modems, high speed they connect to the data terminal equipment (DCE to connect to DTE). DSL connects via telephone lines, Cable connects via coaxial lines.",
+            "CSU/DSU - Digital leased lines require CSU and DSU, it can be a modem or it can be an interface on a router, CSU provides termination for the digital signal and ensures connection integrity.",
+            "Optical Converter - Optical Fiber, it connects copper media (Ethernet) and converts them to optical signals to electronic pulses.",
+            "Wireless Router / AP - Wirelessly connects to a WAN provider, also uses cellular wireless connectivity.",
+            "WAN Core Devices - The WAN backbone, consists of high-speed routers and layer 3 switches. Must be able to support the highest speeds in the WAN core. Must be able to forward packets at full speed. Also must support many protocols at the core."
+          ]
+        },
+        {
+          "type": "h2",
+          "content": "Serial Communication:"
+        },
+        {
+          "type": "p",
+          "content": "Almost all network communications occur using a serial communication delivery. Serial transmits bits sequentially over a single channel. In contrast, parallel simultaneously transmits several bits over multiple wires. It is not viable to use parallel connections even though it's 8 times faster; it is prone to synchronization problems because the timing between channels becomes more sensitive to distance. If you were to use a copper cable, it is limited to 8 meters (26 feet)."
+        },
+        {
+          "type": "p",
+          "content": "Cisco Nexus switches support parallel optics to transfer more data signals to achieve high speed (i.e., 100, 200, 300, and even up to 400 Gbps per interface); these are only used in data center environments or large corporate networks and are expensive."
+        },
+        {
+          "type": "h2",
+          "content": "Circuit-Switched Communication:"
+        },
+        {
+          "type": "p",
+          "content": "A circuit-switched network establishes a dedicated circuit (or channel) between endpoints before the users can communicate. During transmission over a circuit-switched network, all communication uses the same path. The entire fixed capacity allocated to the circuit is available for the duration of the connection, regardless of whether there is information to transmit or not. This can lead to inefficiencies in circuit usage. For this reason, circuit switching is generally not suited for data communication. The most common types of circuit-switched technologies are the public switched telephone network (PSTN) and the legacy Integrated Services Digital Network (ISDN)."
+        },
+        {
+          "type": "h2",
+          "content": "Packet-Switched Communication:"
+        },
+        {
+          "type": "p",
+          "content": "Network communication is most commonly implemented using packet-switched communication. Packet-switched networks do not require a circuit to be established, and they allow many pairs of nodes to communicate over the same channel. Packet switching is much less expensive and more flexible than circuit switching. Although susceptible to delays (latency) and variability of delay (jitter), modern technology allows satisfactory transport of voice and video communications on these networks."
+        },
+        {
+          "type": "p",
+          "content": "Common types of packet-switched WAN technologies are Ethernet WAN (Metro Ethernet), MPLS (Multiprotocol Label Switching), as well as the legacy options Frame Relay and Asynchronous Transfer Mode (ATM)."
+        },
+        {
+          "type": "h2",
+          "content": "SDH, SONET, and DWDM:"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Fiber > Copper (less attenuation (distance of travel), resistance to EMI / RFI, its transfer speed)",
+            "SDH - Synchronous Digital Hierarchy (SDH) is a global standard for transporting data over fiber-optic cable.",
+            "SONET - Synchronous Optical Networking (SONET) is the North American standard that provides the same services as SDH."
+          ]
+        },
+        {
+          "type": "p",
+          "content": "Both standards are basically the same thing. SDH/SONET define how to transfer multiple data, voice, and video communications over optical fiber using lasers or light-emitting diodes (LEDs) over great distances."
+        },
+        {
+          "type": "p",
+          "content": "Dense Wavelength Division Multiplexing (DWDM) is a newer technology that increases the data-carrying capacity of SDH and SONET by simultaneously sending multiple streams of data (multiplexing) using different wavelengths of light. It basically takes one fiber cable and allows for multiple data streams to be transmitted simultaneously over a single fiber optical cable. It uses different wavelengths of light creating virtual channels."
+        },
+        {
+          "type": "h2",
+          "content": "Traditional WAN Connectivity Options:"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Dedicated Options - Leased lines from T1 - E1 (up to 1.544 Mbps / 2.048 Mbps) and T3/E3 (up to 43.7 Mbps / 34.368 Mbps) connections."
+          ]
+        },
+        {
+          "type": "h3",
+          "content": "Circuit Switched Connections:"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "PSTN: Dial-up access using voice modems, limited to under 56 kbps. Considered a legacy technology.",
+            "ISDN: Offers digital signal transport with speeds from 45 Kbps to 2.048 Mbps."
+          ]
+        },
+        {
+          "type": "h3",
+          "content": "Packet-Switched:"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Frame Relay: Connects multiple sites through PVCs (up to 4 Mbps).",
+            "ATM: Transfers voice, video, and data using fixed-length cells (53 bytes). Less efficient than Frame Relay."
+          ]
+        },
+        {
+          "type": "h2",
+          "content": "Modern WANs:"
+        },
+        {
+          "type": "h3",
+          "content": "Dedicated Broadband"
+        },
+        {
+          "type": "p",
+          "content": "In the late 1990s, telecom companies built optical fiber networks anticipating future needs. Advances like wavelength division multiplexing (WDM) greatly increased a single fiber's capacity, leaving many fiber runs unused, referred to as \"dark fiber.\""
+        },
+        {
+          "type": "h3",
+          "content": "Packet-Switched"
+        },
+        {
+          "type": "p",
+          "content": "Two packet-switched WAN network options are available. Enabled it to expand into the MAN and WAN areas. Metro Ethernet provides fast bandwidth links. Multi-protocol Label Switching (MPLS) enables the WAN provider network to carry any protocol (e.g., IPv4 packets, IPv6 packets, Ethernet, DSL) as payload data. This enables different sites to connect to the provider network regardless of its access technologies."
+        },
+        {
+          "type": "h3",
+          "content": "Internet-based Broadband"
+        },
+        {
+          "type": "p",
+          "content": "Organizations are now commonly using the global internet infrastructure for WAN connectivity. To address the security concerns, the connectivity options are often combined with VPN technologies."
+        },
+        {
+          "type": "h3",
+          "content": "Ethernet WAN"
+        },
+        {
+          "type": "p",
+          "content": "Newer Ethernet standards using fiber-optic cables have made Ethernet a reasonable WAN access option. For example: the IEEE 1000BASE-LX standard supports fiber-optic cable lengths of 5 km, while the IEEE 1000BASE-ZX standard supports cable lengths up to 70 km. The Ethernet WAN service can go by many names, including the following:"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Metropolitan Ethernet (Metro E)",
+            "Ethernet over MPLS (EoMPLS)",
+            "Virtual Private LAN Service (VPLS)"
+          ]
+        },
+        {
+          "type": "h2",
+          "content": "MPLS:"
+        },
+        {
+          "type": "p",
+          "content": "Multiprotocol Label Switching (MPLS) is a high-performance service provider WAN routing technology to interconnect clients without regard to access method or payload. MPLS supports a variety of client access methods (e.g., Ethernet, DSL, Cable, Frame Relay). MPLS can encapsulate all types of protocols including IPv4 and IPv6 traffic. An MPLS router can be a customer edge (CE) router, a provider edge (PE) router, or an internal provider (P) router. Notice that MPLS supports a variety of client access connections. MPLS routers are label switched routers (LSRs). This means that they attach labels to packets that are then used by other MPLS routers to forward traffic. When traffic is leaving the CE, the MPLS PE router adds a short fixed-length label in between the frame header and packet header. MPLS P routers use the label to determine the next hop of the packet. The label is removed by the egress PE router when the packet leaves the MPLS network."
+        },
+        {
+          "type": "h2",
+          "content": "Internet-Based Connectivity Options"
+        },
+        {
+          "type": "p",
+          "content": "Modern WAN options extend beyond Ethernet WAN and MPLS to include various internet-based wired and wireless connectivity solutions."
+        },
+        {
+          "type": "h3",
+          "content": "Types:"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Wired: xDSL, cable, optical fiber",
+            "Wireless: municipal Wi-Fi, cellular, satellite internet, WiMAX"
+          ]
+        },
+        {
+          "type": "h2",
+          "content": "DSL Technology"
+        },
+        {
+          "type": "p",
+          "content": "Digital Subscriber Line (DSL) uses existing twisted-pair telephone lines for high-speed, always-on IP services."
+        },
+        {
+          "type": "h3",
+          "content": "Types:"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "ADSL (Asymmetric DSL): Higher downstream than upstream bandwidth.",
+            "SDSL (Symmetric DSL): Equal upload and download capacity."
+          ]
+        },
+        {
+          "type": "h3",
+          "content": "Factors Affecting Performance:"
+        },
+        {
+          "type": "p",
+          "content": "Distance from the provider, type, and condition of cabling."
+        },
+        {
+          "type": "h3",
+          "content": "DSL Connections"
+        },
+        {
+          "type": "p",
+          "content": "DSL connections are established between the DSL modem and the DSL access multiplexer (DSLAM). The DSL modem converts Ethernet signals to DSL signals for transmission to the DSLAM, which concentrates connections from multiple users."
+        },
+        {
+          "type": "h3",
+          "content": "DSL and PPP"
+        },
+        {
+          "type": "p",
+          "content": "Point-to-Point Protocol (PPP): A Layer 2 protocol used by ISPs for DSL connections for authentication, IP address assignment, and link-quality management."
+        },
+        {
+          "type": "p",
+          "content": "Deployment: PPP over Ethernet (PPPoE) can be set up directly on a host or a router."
+        },
+        {
+          "type": "h2",
+          "content": "Cable Technology"
+        },
+        {
+          "type": "p",
+          "content": "Uses coaxial cable to provide high-speed, always-on internet access. DOCSIS: The standard for adding high-bandwidth data to cable systems. Network Setup: Cable systems use hybrid fiber-coaxial (HFC) networks with both coaxial and fiber-optic cables."
+        },
+        {
+          "type": "h2",
+          "content": "Optical Fiber"
+        },
+        {
+          "type": "h3",
+          "content": "Types:"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Fiber to the Home (FTTH)",
+            "Fiber to the Building (FTTB)",
+            "Fiber to the Node/Neighborhood (FTTN)"
+          ]
+        },
+        {
+          "type": "h3",
+          "content": "Advantage:"
+        },
+        {
+          "type": "p",
+          "content": "Delivers the highest bandwidth among broadband options."
+        },
+        {
+          "type": "h2",
+          "content": "Wireless Internet-Based Broadband"
+        },
+        {
+          "type": "p",
+          "content": "Uses unlicensed radio spectrum; less expensive but affected by distance, interference, and user load. Municipal Wi-Fi: Cities set up wireless networks for public access or city use."
+        },
+        {
+          "type": "h2",
+          "content": "VPN Technology"
+        },
+        {
+          "type": "p",
+          "content": "Provides secure, encrypted connections over public networks."
+        },
+        {
+          "type": "h3",
+          "content": "Benefits:"
+        },
+        {
+          "type": "p",
+          "content": "Cost savings, high security, scalability, and compatibility with broadband."
+        },
+        {
+          "type": "h3",
+          "content": "Types:"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Site-to-site: Transparent to users, configured on routers.",
+            "Remote Access: Users initiate the connection."
+          ]
+        },
+        {
+          "type": "h2",
+          "content": "ISP Connectivity Options"
+        },
+        {
+          "type": "h3",
+          "content": "Types:"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Single-homed: One ISP connection, no redundancy, least expensive.",
+            "Dual-homed: Two connections for redundancy.",
+            "Multihomed: Multiple connections to different ISPs for reliability.",
+            "Dual-multihomed: A combination for enhanced resilience."
+          ]
+        },
+        {
+          "type": "h2",
+          "content": "Broadband Solution Comparison"
+        },
+        {
+          "type": "h3",
+          "content": "Considerations:"
+        },
+        {
+          "type": "ul",
+          "content": [
+            "Cable: Shared bandwidth, slower upload during peak times.",
+            "DSL: Limited, distance-sensitive bandwidth with lower upload rates.",
+            "Fiber-to-the-Home: Direct fiber installation; ideal but may not be available everywhere.",
+            "Cellular/Mobile: Coverage issues, limited bandwidth.",
+            "Municipal Wi-Fi: Viable if available; not commonly deployed as mesh networks.",
+            "Satellite: High cost, limited capacity, typically a last resort."
+          ]
+        }
+      ]
     }
-
   ]
 }
