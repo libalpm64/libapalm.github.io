@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resize Image to 200x200</title>
+</head>
+<body>
+    <h2>Resize Image to 200x200</h2>
+    <input type="file" id="uploadImage" accept="image/*">
+    <br><br>
+    <canvas id="canvas" style="display:none;"></canvas>
+    <br><br>
+    <button id="downloadButton" style="display:none;">Download Resized Image</button>
+
+    <script>
+        const uploadImage = document.getElementById('uploadImage');
+        const canvas = document.getElementById('canvas');
+        const downloadButton = document.getElementById('downloadButton');
+        const ctx = canvas.getContext('2d');
+
+        uploadImage.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const img = new Image();
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                };
+                
+                img.onload = function() {
+                    const size = 200; // Final size (200x200)
+
+                    // Set canvas size
+                    canvas.width = size;
+                    canvas.height = size;
+                    
+                    // Calculate aspect ratio and center the image
+                    const aspectRatio = img.width / img.height;
+                    let drawWidth, drawHeight, offsetX, offsetY;
+
+                    if (aspectRatio > 1) {
+                        // Image is wider than it is tall, fit it based on height
+                        drawHeight = size;
+                        drawWidth = size * aspectRatio;
+                        offsetX = -(drawWidth - size) / 2;
+                        offsetY = 0;
+                    } else {
+                        // Image is taller than it is wide, fit it based on width
+                        drawWidth = size;
+                        drawHeight = size / aspectRatio;
+                        offsetX = 0;
+                        offsetY = -(drawHeight - size) / 2;
+                    }
+
+                    // Draw image centered and cropped to fit 200x200
+                    ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+                    
+                    // Show download button after drawing the image
+                    downloadButton.style.display = 'inline';
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        });
+
+        downloadButton.addEventListener('click', function() {
+            // Download resized image as WEBP
+            const link = document.createElement('a');
+            link.download = 'resized_image.webp';
+            link.href = canvas.toDataURL('image/webp');
+            link.click();
+        });
+    </script>
+</body>
+</html>
