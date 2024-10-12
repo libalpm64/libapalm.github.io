@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>libalpm Portfolio</title>
+    <link rel="stylesheet" href="assets/portfolio.css">
+</head>
+<body>
+    <div class="rain" id="rain"></div>
+    <div class="container">
+        <header>
+            <h1>libalpm Portfolio</h1>
+        </header>
+
+         <section class="about-me">
+            <h2>About Me</h2>
+            <p>Greetings! I'm Libalpm, and I'm a cybersecurity expert and network engineer. I founded the company LostLab; our mission is to make cybersecurity as cheap as possible and more accessible to everyone. I founded LostLab not to make money but to promote best practices and allow affordability.</p>
+            <p>Some things I like to do in my free time are read light novels or manga, watch anime, and a new one, write blogs. We will see how that goes. Sometimes I play video games, but not as much as I used to. I like programming when I have the time, and love sleep.</p>
+         </section>
+
+        <section class="split-panel">
+            <div class="certifications">
+                <h2>Certifications</h2>
+                <div class="certification-item">
+                    <h3>JNCIA Certified (Expired)</h3>
+                    <p>Issued by Juniper Networks, 2019</p>
+                </div>
+                <div class="certification-item">
+                    <h3>OCPSA</h3>
+                    <p>Issued by Oracle, 2021</p>
+                </div>
+                <div class="certification-item">
+                    <h3>CCNA</h3>
+                    <p>In Progress... Check back soon.</p>
+                </div>
+            </div>
+            <div class="skills-expertise">
+                <h2>Skills & Expertise</h2>
+                <div class="skill-bar">
+                    <h3>Cybersecurity</h3>
+                    <div class="skill-bar-container">
+                        <div class="skill-bar-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <h3>Networking</h3>
+                    <div class="skill-bar-container">
+                        <div class="skill-bar-fill" style="width: 95%;"></div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <h3>Coding (Specifically backends for web apps or low level programming).</h3>
+                    <div class="skill-bar-container">
+                        <div class="skill-bar-fill" style="width: 90%;"></div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <h3>Code auditing and reverse engineering.</h3>
+                    <div class="skill-bar-container">
+                        <div class="skill-bar-fill" style="width: 80%;"></div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <h3>Next Generation Heuristic AI</h3>
+                    <div class="skill-bar-container">
+                        <div class="skill-bar-fill" style="width: 50%;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="timeline-container">
+            <h2>Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-content">
+                    <div class="timeline-item">
+                        <h3>2015</h3>
+                        <p>Started working with Linux begineer stages learned the basics of Linux from hosting VPN servers.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>2017</h3>
+                        <p>Started Pentesting and started learning about different types of attacks and how to prevent them. </p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>2018</h3>
+                        <p>Started contributing to open-source projects. Started a company that now focuses on cybersecurity and forensics.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>2019</h3>
+                        <p>Did bug bounty for companies like Microsoft, AT&T, and Subway. Got JNCIA Certified.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>2021</h3>
+                        <p>Worked on anti cheat software for gaming. (Remote intern for EAC). Also worked for Echo.ac on detecting ghost clients. Developed the software PYTGuard.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>2022</h3>
+                        <p>AI started a hugging face and started working with AI models and LLM learning with Pytorch.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>2023</h3>
+                        <p>Working on my certifications in Cybersecurity and Ethical Hacking and CCNA.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2024 libalpm Portfolio. All rights reserved.</p>
+            <p>Crafted with <a href="#">&#10084;</a> by libalpm</p>
+        </footer>
+    </div>
+    <script>
+        function createRaindrop() {
+            const raindrop = document.createElement('div');
+            raindrop.classList.add('raindrop');
+            raindrop.style.left = `${Math.random() * 100}%`;
+            raindrop.style.animationDuration = `${Math.random() * 1 + 0.5}s`;
+            raindrop.style.opacity = Math.random();
+            raindrop.style.setProperty('--scale', Math.random() * 0.5 + 0.5);
+            document.getElementById('rain').appendChild(raindrop);
+
+            setTimeout(() => {
+                raindrop.remove();
+            }, 2000);
+        }
+
+        setInterval(createRaindrop, 20);
+
+        const timelineContent = document.querySelector('.timeline-content');
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        
+        timelineItems.forEach(item => {
+            const clone = item.cloneNode(true);
+            timelineContent.appendChild(clone);
+        });
+
+        const scrollDuration = 30;
+        const totalWidth = timelineContent.scrollWidth / 2;
+        const pixelsPerSecond = totalWidth / scrollDuration;
+
+        function scrollTimeline(timestamp) {
+            if (!scrollTimeline.startTime) scrollTimeline.startTime = timestamp;
+            const elapsedTime = (timestamp - scrollTimeline.startTime) / 1000; 
+
+            let scrollPosition = (elapsedTime * pixelsPerSecond) % totalWidth;
+            timelineContent.style.transform = `translateX(${-scrollPosition}px)`;
+
+            requestAnimationFrame(scrollTimeline);
+        }
+
+        requestAnimationFrame(scrollTimeline);
+    </script>
+</body>
+</html>

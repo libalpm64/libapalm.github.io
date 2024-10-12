@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spin the Wheel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0a0a0a;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+        }
+        .card {
+            background-color: rgba(20,20,20,0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 2rem;
+            max-width: 800px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+        .card-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .card-description {
+            text-align: center;
+            color: #999;
+            margin-bottom: 2rem;
+        }
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ccc;
+        }
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            background-color: rgba(30,30,30,0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            padding: 0.5rem;
+            resize: none;
+        }
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .wheel-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .wheel-wrapper {
+            position: relative;
+            width: 256px;
+            height: 256px;
+        }
+        #wheel {
+            width: 100%;
+            height: 100%;
+        }
+        .pointer {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 16px solid white;
+            transform: translateX(-50%);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: rgba(20,20,20,0.9);
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            width: 80%;
+            max-width: 400px;
+            border-radius: 8px;
+        }
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .modal-description {
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1 class="card-title">Spin the Wheel</h1>
+        <p class="card-description">Enter your options and spin the wheel to make a random selection</p>
+        <div class="content">
+            <div>
+                <div class="input-group">
+                    <label for="optionsInput">Enter Options</label>
+                    <textarea id="optionsInput" placeholder="Enter your options, one per line">Option 1
+Option 2
+Option 3
+Option 4</textarea>
+                </div>
+                <div class="input-group">
+                    <label>Choose Separator</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="comma" name="separator" value=",">
+                            <label for="comma">Commas (,)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="newline" name="separator" value="\n" checked>
+                            <label for="newline">Newlines</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="space" name="separator" value=" ">
+                            <label for="space">Spaces</label>
+                        </div>
+                    </div>
+                </div>
+                <button id="spinButton">Spin the Wheel</button>
+            </div>
+            <div class="wheel-container">
+                <div class="wheel-wrapper">
+                    <svg id="wheel" viewBox="0 0 200 200"></svg>
+                    <div class="pointer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <h2 class="modal-title">Congratulations!</h2>
+            <p class="modal-description">You selected: <strong id="selectedOption"></strong></p>
+        </div>
+    </div>
+
+    <script>
+        const optionsInput = document.getElementById('optionsInput');
+        const spinButton = document.getElementById('spinButton');
+        const wheel = document.getElementById('wheel');
+        const modal = document.getElementById('resultModal');
+        const selectedOptionElement = document.getElementById('selectedOption');
+
+        let options = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
+        let currentRotation = 0;
+        let isSpinning = false;
+
+        function createWheelSegments() {
+            wheel.innerHTML = '';
+            const numOptions = options.length;
+            let cumulativeAngle = 0;
+
+            options.forEach((option, index) => {
+                const startAngle = cumulativeAngle;
+                const endAngle = startAngle + (360 / numOptions);
+                cumulativeAngle = endAngle;
+
+                const startRadians = (startAngle * Math.PI) / 180;
+                const endRadians = (endAngle * Math.PI) / 180;
+
+                const x1 = 100 + 100 * Math.cos(startRadians);
+                const y1 = 100 + 100 * Math.sin(startRadians);
+                const x2 = 100 + 100 * Math.cos(endRadians);
+                const y2 = 100 + 100 * Math.sin(endRadians);
+
+                const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+
+                const pathData = [
+                    "M", 100, 100,
+                    "L", x1, y1,
+                    "A", 100, 100, 0, largeArcFlag, 1, x2, y2,
+                    "Z"
+                ].join(" ");
+
+                const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                path.setAttribute("d", pathData);
+                path.setAttribute("fill", index % 2 === 0 ? "rgba(30, 30, 30, 0.6)" : "rgba(40, 40, 40, 0.6)");
+                path.setAttribute("stroke", "rgba(255, 255, 255, 0.1)");
+                path.setAttribute("stroke-width", "1");
+                wheel.appendChild(path);
+
+                const midAngle = (startAngle + endAngle) / 2;
+                const labelX = 100 + 70 * Math.cos((midAngle * Math.PI) / 180);
+                const labelY = 100 + 70 * Math.sin((midAngle * Math.PI) / 180);
+
+                const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                text.setAttribute("x", labelX.toString());
+                text.setAttribute("y", labelY.toString());
+                text.setAttribute("text-anchor", "middle");
+                text.setAttribute("dominant-baseline", "middle");
+                text.setAttribute("fill", "rgba(255, 255, 255, 0.8)");
+                text.setAttribute("font-size", "10");
+                text.setAttribute("font-weight", "bold");
+                text.setAttribute("transform", `rotate(${midAngle}, ${labelX}, ${labelY})`);
+                text.textContent = option;
+                wheel.appendChild(text);
+            });
+        }
+
+        function parseOptions() {
+            const separator = document.querySelector('input[name="separator"]:checked').value;
+            const inputValue = optionsInput.value;
+            let splitOptions;
+            if (separator === ',') {
+                splitOptions = inputValue.split(',');
+            } else if (separator === '\n') {
+                splitOptions = inputValue.split(/\r?\n/);
+            } else if (separator === ' ') {
+                splitOptions = inputValue.split(' ');
+            }
+            return splitOptions ? splitOptions.map(opt => opt.trim()).filter(opt => opt) : [];
+        }
+
+        function updateWheel() {
+            const newOptions = parseOptions();
+            if (newOptions.length >= 2) {
+                options = newOptions;
+                createWheelSegments();
+            }
+        }
+
+        function spinWheel() {
+            updateWheel();
+            if (options.length < 2) {
+                alert('Please enter at least two options to spin the wheel.');
+                return;
+            }
+            isSpinning = true;
+            spinButton.disabled = true;
+
+            const randomIndex = Math.floor(Math.random() * options.length);
+            const anglePerSegment = 360 / options.length;
+            const extraSpins = 5 * 360; // 5 full spins
+            const finalAngle = 360 - (randomIndex * anglePerSegment) - (anglePerSegment / 2);
+            const totalRotation = currentRotation + extraSpins + finalAngle;
+
+            wheel.style.transition = 'transform 3s cubic-bezier(0.25, 0.1, 0.25, 1)';
+            wheel.style.transform = `rotate(${totalRotation}deg)`;
+
+            currentRotation = totalRotation % 360;
+
+            setTimeout(() => {
+                isSpinning = false;
+                spinButton.disabled = false;
+                selectedOptionElement.textContent = options[randomIndex];
+                modal.style.display = 'block';
+                wheel.style.transition = 'none';
+            }, 3000);
+        }
+
+        spinButton.addEventListener('click', spinWheel);
+        optionsInput.addEventListener('input', updateWheel);
+        optionsInput.addEventListener('blur', updateWheel);
+        document.querySelectorAll('input[name="separator"]').forEach(radio => {
+            radio.addEventListener('change', updateWheel);
+        });
+
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        createWheelSegments();
+
+        // Passive spin animation
+        setInterval(() => {
+            if (!isSpinning) {
+                currentRotation = (currentRotation + 0.5) % 360;
+                wheel.style.transform = `rotate(${currentRotation}deg)`;
+            }
+        }, 50);
+    </script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libalpm | Home</title>
+    <meta name="description" content="Hello I'm Libalpm, a cybersecurity and network engineering based in Dayton, Ohio.">
+    <meta name="keywords" content="Libalpm, Cybersecurity, Network Engineer, Dayton Ohio, Technology Blog, Cybersecurity Insights">
+    <meta name="author" content="Libalpm">
+    <link rel="preload" href="assets/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="assets/style.css" as="style">
+    <link rel="preload" href="assets/libalpm.js" as="script">
+    <link id="themeStylesheet" rel="stylesheet" href="assets/style.css">
+    <script src="assets/chart.js"></script>
+    <link rel="icon" href="assets/libalpm.ico" type="image/x-icon"> 
+    <link rel="canonical" href="https://libalpm.dev/">
+    <meta name="robots" content="index, follow">
+    <meta name="mobile-web-app-capable" content="yes">
+</head>
+<body>
+    <div class="theme-transition"></div>
+    <div class="rain"></div>
+    <div class="lightning"></div>
+    <div class="container">
+        <header>
+            <h1>@Libalpm64</h1>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#vulnerabilities-list">News</a></li>
+                <li><a href="libalpm-portfolio.html">About</a></li>
+                <li><a href="https://blog.libalpm.dev">Blog</a></li>
+                <li><a href="#graph">Graph</a></li>
+            </ul>
+        </nav>
+        <div class="main-content">
+            <div class="panel profile">
+                <div class="profile-image">
+                    <img src="assets/libalpm.webp" alt="Libalpm">
+                </div>
+                <div class="profile-info">
+                    <h2 class="profile-name">Libalpm (リバルプム) <button id="playButton" class="play-button">▶</button> <button id="themeSwitcher" class="play-button">🌙</button></h2>
+                    <p>Cybersecurity / Network Engineer</p>
+                    <p>Location: Dayton, Ohio</p>
+                    <p>"Being alone is better than being with the wrong person."</p>
+                    <p>Languages: 
+                        <img src="assets/flags/us.svg" alt="English" title="English" width="16" height="16">
+                        English
+                        <img src="assets/flags/jp.svg" alt="Japanese" title="Japanese (N3)" width="16" height="16">
+                        Japanese (N3)
+                    </p>
+                    <p id="ntp-time">Current time: <span id="current-time"></span></p>
+                </div>
+            </div>
+            <div class="panel">
+                <h2>Projects</h2>
+                <ul>
+                    <li>Lostlab Proxy</li>
+                    <li>DLL Driver Bypass</li>
+                    <li>Anti Debug</li>
+                    <li>Debloat Windows</li>
+                    <li>Linux Smart Chess Bot</li>
+                    <li>Javascript Anticrawler</li>
+                </ul>
+            </div>
+            <div class="panel">
+                <h2>Interests</h2>
+                <ul>
+                    <li>❤️ Anime / Light Novels.</li>
+                    <li>🔒 Cybersecurity</li>
+                    <li>🐧 Operating Systems</li>
+                    <li>🧑‍💻 Kernel Tweaking / Bug Hunting</li>
+                    <li>🌍 Traveling</li>
+                    <li>🗣️ Language Learning</li>
+                </ul>
+            </div>
+            <div class="panel">
+                <h2>Skills</h2>
+                <ul>
+                    <li>Programming Languages: JS, C++, C, Go, Rust, Python</li>
+                    <li>Cybersecurity: OSINT, Forensics, Ethical Hacking, Cryptography.</li>
+                    <li>Networking: CCNA, JNCP, Net+ (Cisco, Juniper, Fortinet, Arista, Aruba, Ubiquiti)</li>
+                    <li>Reverse engineering: IDA, X64 Dbg, CFF Explorer, Flarefloss, code caves, IAT hooking, etc..</li>
+                </ul>
+            </div>
+            <div class="panel">
+                <h2>Certifications</h2>
+                <ul>
+                    <li>
+                        <a target="_blank">
+                            CCNA (In Progress) <img src="images/cisco.svg" alt="CCNA (In Progess)" style="filter: invert(1); width: 24px; height: 24px; vertical-align: middle; margin-left: 5px;">
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank">
+                            CEH (In Progress) <img src="images/ecouncil.svg" alt="CCNA (In Progess)" style="filter: invert(1); width: 24px; height: 24px; vertical-align: middle; margin-left: 5px;">
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank">
+                            JNCIA <img src="images/Juniper.svg" alt="JNCIA" style="filter: invert(1); width: 24px; height: 24px; vertical-align: middle; margin-left: 5px;">
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank">
+                            Net +<img src="images/comptia.svg" alt="Net +" style="filter: invert(1); width: 24px; height: 24px; vertical-align: middle; margin-left: 5px;">
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank">
+                            OCPSA<img src="images/linux.svg" alt="OCPSA" style="filter: invert(1); width: 24px; height: 24px; vertical-align: middle; margin-left: 5px;">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel">
+                <h2>Socials</h2>
+                <ul class="social-icons">
+                    <li>
+                        <a href="https://github.com/libalpm64/" target="_blank">
+                            GitHub <img src="images/github.svg" alt="GitHub" style="filter: invert(1); width: 24px; height: 24px; vertical-align: middle; margin-left: 5px;">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://matrix.to/#/@libalpm:unredacted.org" target="_blank">
+                            Matrix <img src="images/matrix.svg" alt="Matrix" style="filter: invert(1); width: 24px; height: 24px; vertical-align: middle; margin-left: 5px;">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@libalpm.01" target="_blank">
+                            Signal <img src="images/signal.svg" alt="Signal" style="filter: invert(1); width: 24px; height: 24px; vertical-align: middle; margin-left: 5px;">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://simplex.chat/contact#/?v=2-7&amp;smp=smp%3A%2F%2FUkMFNAXLXeAAe0beCa4w6X_zp18PwxSaSjY17BKUGXQ%3D%40smp12.simplex.im%2FdSQn3kk0X5xnT1ILL78OnTWnEPpROENp%23%2F%3Fv%3D1-3%26dh%3DMCowBQYDK2VuAyEAOITfCm8nnK-bSUYfpjEDm9e-eeUm8JtIH1aLH1ahKVQ%253D%26srv%3Die42b5weq7zdkghocs3mgxdjeuycheeqqmksntj57rmejagmg4eor5yd.onion" target="_blank">
+                            Simplex <img src="images/Simplex.svg" alt="Simplex" style="filter: invert(1); width: 24px; height: 24px; vertical-align: middle; margin-left: 5px;">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mailto:libalpm@proton.me" target="_blank">
+                            Email <img src="images/proton.svg" alt="Email" style="filter: invert(1); width: 24px; height: 24px; vertical-align: middle; margin-left: 5px;">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel">
+                <h2>Aspect</h2>
+                <ul>
+                    <li>AOSP Security Researcher</li>
+                    <li>The Linux Kernel (mstaafu).</li>
+                    <li>Fuzzing for various services: Microsoft teams, Linux Kernel, Android, EDR applications, etc.</li>
+                    <li>Credited getting exploits patched in Mikrotik, TP-Link, ADB, and PMA devices used by botnets. 2019-Present</li>
+                </ul>
+            </div>
+            <div class="panel cybersecurity-news">
+                <h2>Latest Cybersecurity News</h2>
+                <div id="vulnerabilities-list" class="news-grid">
+                    <!-- News items will be dynamically inserted here -->
+					<!-- We use github raw json to remove NVD api rate limiting -->
+					<!-- Original Data -->
+					<!-- https://services.nvd.nist.gov/rest/json/cves/2.0?pubStartDate=2024-07-30T17:11:20.761Z&pubEndDate=2024-09-28T17:11:20.761Z&cvssV3Severity=CRITICAL&resultsPerPage=20 -->
+                </div>
+                <div id="page-indicator" class="page-indicator"></div>
+            </div>
+
+            <div class="panel">
+                <h2>Browser Details</h2>
+                <ul id="browser-details">
+                    <li>Loading browser details...</li>
+                </ul>
+            </div>
+            <div class="panel">
+                <h2>Interesting figures</h2>
+                <p>Current US National Debt: <span id="current-debt">Calculating...</span></p>
+                <p>UNIX Time: <span id="unix-time">Calculating...</span></p>
+                <h3>Since my site was created (july 22 2021):</h3>
+                <p>Money Spent Globally: <span id="spendingCounter">Calculating...</span></p>
+                <p>New Websites Created: <span id="websitesCounter">Calculating...</span></p>
+                <p>Distance Traveled by Earth: <span id="earthDistanceCounter">Calculating...</span></p>
+                <p>CO2 Emissions: <span id="co2Counter">Calculating...</span></p>
+                <p>World's Energy Consumption (in Hiroshima bombs): <span id="energyCounter">Calculating...</span></p>
+            </div>
+            <div class="panel">
+                <h2>Password Generator</h2>
+                <p>Secure Random Passwords (24 characters each):</p>
+                <p><strong><span id="generated-password-1">Generating...</span></strong></p>
+                <p><strong><span id="generated-password-2">Generating...</span></strong></p>
+                <p><strong><span id="generated-password-3">Generating...</span></strong></p>
+                <p><strong><span id="generated-password-4">Generating...</span></strong></p>
+                <p><strong><span id="generated-password-5">Generating...</span></strong></p>
+                <div id="refresh-bar" style="width: 100%; height: 5px; background-color: #ddd;">
+                    <div id="refresh-progress" style="width: 100%; height: 100%; background-color: #4CAF50;"></div>
+                </div>
+                <p>Time until refresh: <span id="refresh-time">30</span> seconds</p>
+                <p><small>These passwords are generated locally and not stored.</small></p>
+            </div>
+
+            <div class="panel">
+                <h2>Your Connection Details</h2>
+                <div id="ip-section">
+                    <p>Your IP: <span id="user-ip" style="filter: blur(5px); cursor: pointer;" onclick="this.style.filter = 'none';">Fetching...</span></p>
+                    <p>IP Version: <span id="ip-version">Detecting...</span></p>
+                </div>
+                <p>HTTP Version: <span id="http-version">Detecting...</span></p>
+            </div>
+            <div class="panel">
+                <h2>Website Hosting Details</h2>
+                <ul>
+                    <li>Powered by Cloudflare</li>
+                    <li>99.99% Uptime (Zero Downtime)</li>
+                    <li>Lightning-Fast Response Times</li>
+                    <li>Serving Content from Edge Locations Worldwide</li>
+                    <li>Backend Services provided by Fastly.</li>
+                </ul>
+            </div>
+            <div class="panel">
+                <h2>ServiceStatus:</h2>
+                <div class="iframe-container" style="position: relative; width: 250px; height: 30px; margin: 10px 0;"><div class="loading" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; justify-content: center; align-items: center;"><div class="spinner" style="border: 4px solid rgba(255, 255, 255, 0.3); border-top: 4px solid #ffffff; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;"></div></div><iframe data-src="https://status.libalpm.dev/badge?theme=dark" style="display: none; width: 100%; height: 100%; border: 0;" onload="this.previousElementSibling.style.display='none'; this.style.display='block';"></iframe></div><style>@keyframes spin {0% {transform: rotate(0deg);} 100% {transform: rotate(360deg);}}</style><script>document.addEventListener('DOMContentLoaded', function() { const iframe = document.querySelector('.iframe-container iframe'); const options = { root: null, rootMargin: '0px', threshold: 0.1 }; const callback = (entries) => { entries.forEach(entry => { if (entry.isIntersecting) { iframe.src = iframe.dataset.src; iframe.previousElementSibling.style.display = 'flex'; } }); }; const observer = new IntersectionObserver(callback, options); observer.observe(iframe); });</script>
+                <ul>
+                    <li>09/28/2024 - Hurricane caused a power outage, the proxy went down and was restored 3 minutes later after backup power kicked in.</li>
+                    <li>07/13/2024 - Issue with the GDM login screen, was due togdm-x-session, after purging the package the issue was fixed. Offline for around an 1 hour.</li>
+                </ul>
+            </div>
+            
+        </div>
+        <footer>
+            <p>Coded with ❤️ by Libalpm</p>
+            <p>For inquiries, please email or message me on any of my socials</p>
+            <p>© 2024 Libalpm | Powered by ChartJS, Nginx, and BalooProxy</p>
+        </footer>
+    </div>
+    <script src="assets/libalpm.js" defer></script>
+    <script>
+        const themeSwitcher = document.getElementById('themeSwitcher');
+        const themeStylesheet = document.getElementById('themeStylesheet');
+        const themeTransition = document.querySelector('.theme-transition');
+        const savedTheme = localStorage.getItem('theme') || 'light';
+
+        if (savedTheme === 'light') {
+            themeStylesheet.href = 'assets/style.css';
+            themeSwitcher.textContent = '🌙';
+        } else {
+            themeStylesheet.href = 'assets/style_dark.css';
+            themeSwitcher.textContent = '🌅';
+        }
+
+        themeSwitcher.addEventListener('click', () => {
+            themeTransition.style.transform = 'scaleX(1)';
+            
+            setTimeout(() => {
+                if (themeStylesheet.getAttribute('href') === 'assets/style_dark.css') {
+                    themeStylesheet.setAttribute('href', 'assets/style.css');
+                    themeSwitcher.textContent = '🌙';
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    themeStylesheet.setAttribute('href', 'assets/style_dark.css');
+                    themeSwitcher.textContent = '🌅';
+                    localStorage.setItem('theme', 'dark');
+                }
+                
+                setTimeout(() => {
+                    themeTransition.style.transform = 'scaleX(0)';
+                }, 50);
+            }, 500);
+        });
+    </script>
+</body>
+</html>
