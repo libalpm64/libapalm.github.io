@@ -1,0 +1,411 @@
+    // Start of Selection
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cybersecurity Attack Map</title>
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script src="https://d3js.org/topojson.v3.min.js"></script>
+        <style>
+            body { margin: 0; padding: 0; background-color: #000; overflow: hidden; font-family: 'Arial', sans-serif; }
+            #map { width: 100vw; height: 100vh; }
+            .country { fill: none; stroke: #ffffff; stroke-width: 0.5; }
+            .attack-line {
+                fill: none;
+                stroke-linecap: round;
+            }
+            #event-log {
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(0, 10, 20, 0.8);
+                border: 1px solid #1a3f5c;
+                border-radius: 5px;
+                width: 600px;
+                height: 300px;
+                overflow: hidden;
+                font-family: 'Consolas', 'Courier New', monospace;
+            }
+            #log-header {
+                background: #0a1a2f;
+                color: #4a9cff;
+                padding: 5px 10px;
+                font-size: 12px;
+                font-weight: bold;
+                border-bottom: 1px solid #1a3f5c;
+            }
+            #log-content {
+                height: calc(100% - 25px);
+                overflow: hidden; /* Removed scrollbar by hiding overflow */
+            }
+            .event-item {
+                display: flex;
+                padding: 3px 10px;
+                border-bottom: 1px solid #1a3f5c;
+                font-size: 11px;
+                color: #b0e0ff;
+            }
+            .event-item:last-child {
+                border-bottom: none;
+            }
+            .event-type {
+                flex: 3;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .event-severity {
+                flex: 1;
+                text-align: center;
+            }
+            .event-location {
+                flex: 2;
+                text-align: right;
+            }
+            .severity-low { color: #00ff00; }
+            .severity-medium { color: #ffff00; }
+            .severity-high { color: #ff0000; }
+            .severity-critical { color: #ff00ff; }
+            .flag {
+                width: 25px;
+                height: 15px;
+                margin-right: 5px;
+                vertical-align: middle;
+            }
+            #map-logo {
+                position: absolute;
+                top: 20px;
+                left: 20px;
+                display: flex;
+                align-items: center;
+                background: rgba(0,0,0,0.7);
+                padding: 10px;
+                border-radius: 5px;
+            }
+            #map-logo img {
+                width: 30px;
+                height: auto;
+                margin-right: 10px;
+            }
+            #map-logo span {
+                color: #fff;
+                font-size: 18px;
+                font-weight: bold;
+            }
+            /* Hide scrollbar for Webkit browsers */
+            #log-content::-webkit-scrollbar {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <svg id="map"></svg>
+        <div id="map-logo">
+            <img src="assets/company/lostlab-transparent-crop.png" alt="Lostlab Logo">
+            <span>Lostlab Attack Map</span>
+        </div>
+        <div id="event-log">
+            <div id="log-header">
+                <h3>Live Attack Log</h3>
+            </div>
+            <div id="log-content"></div>
+        </div>
+    
+        <script>
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const svg = d3.select("#map")
+                .attr("width", width)
+                .attr("height", height);
+    
+            const projection = d3.geoEquirectangular()
+                .scale((width / 640) * 100)
+                .translate([width / 2, height / 2]);
+    
+            const path = d3.geoPath().projection(projection);
+    
+            const attackColors = {
+                'low': '#00ff00',
+                'medium': '#ffff00',
+                'high': '#ff0000',
+                'critical': '#ff00ff'
+            };
+    
+            const countryCoordinates = {
+                'US': [-95.7129, 37.0902],
+                'CN': [104.1954, 35.8617],
+                'RU': [105.3188, 61.5240],
+                'GB': [-3.4360, 55.3781],
+                'DE': [10.4515, 51.1657],
+                'FR': [2.2137, 46.2276],
+                'JP': [138.2529, 36.2048],
+                'IN': [78.9629, 20.5937],
+                'BR': [-51.9253, -14.2350],
+                'AU': [133.7751, -25.2744],
+                'CA': [-106.3468, 56.1304],
+                'HK': [114.1095, 22.3964],
+                'SI': [14.9955, 46.1512],
+                'IT': [12.5674, 41.8719],
+                'ES': [-3.7492, 40.4637],
+                'NL': [5.2913, 52.1326],
+                'SE': [18.6435, 60.1282],
+                'KR': [127.7669, 35.9078],
+                'ZA': [22.9375, -30.5595],
+                'MX': [-102.5528, 23.6345],
+                'AR': [-63.6167, -38.4161],
+                'SG': [103.8198, 1.3521],
+                'AE': [53.8478, 23.4241],
+                'IL': [34.8516, 31.0461]
+            };
+    
+            // Define adversarial countries and their common attacks
+            const adversarialCountries = {
+                'CN': [
+                    'EDR.Detection',
+                    'XDR.Alert',
+                    'Suspicious.Activity.Detected'
+                ],
+                'RU': [
+                    'EDR.Detection',
+                    'XDR.Alert',
+                    'Suspicious.Activity.Detected'
+                ],
+                'IR': [
+                    'EDR.Detection',
+                    'XDR.Alert',
+                    'Suspicious.Activity.Detected'
+                ]
+                // Add more adversarial countries and their attacks as needed
+            };
+    
+            // Load world map data
+            d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(function(world) {
+                const countries = topojson.feature(world, world.objects.countries);
+                svg.selectAll("path")
+                    .data(countries.features)
+                    .enter().append("path")
+                    .attr("class", "country")
+                    .attr("d", path);
+    
+                svg.attr("viewBox", `0 0 ${width} ${height}`);
+            });
+    
+            function addAttack(attack) {
+                const originCoords = [attack.s_lo, attack.s_la];
+                const destCoords = [attack.d_lo, attack.d_la];
+    
+                const originProjected = projection(originCoords);
+                const destProjected = projection(destCoords);
+    
+                if (!originProjected || !destProjected) {
+                    console.error('Invalid coordinates for attack:', attack);
+                    return;
+                }
+    
+                const lineGenerator = d3.line().curve(d3.curveBasis);
+                const points = [originProjected, destProjected];
+                const midPoint = [(originProjected[0] + destProjected[0]) / 2, (originProjected[1] + destProjected[1]) / 2];
+                const controlPoint = [
+                    midPoint[0] + (Math.random() - 0.5) * 200,
+                    midPoint[1] + (Math.random() - 0.5) * 200
+                ];
+                points.splice(1, 0, controlPoint);
+    
+                const line = svg.append("path")
+                    .datum(points)
+                    .attr("class", "attack-line")
+                    .attr("d", lineGenerator)
+                    .style("stroke", attackColors[attack.severity])
+                    .style("stroke-width", getStrokeWidth(attack.severity))
+                    .style("opacity", 0);
+    
+                const totalLength = line.node().getTotalLength();
+    
+                line.style("stroke-dasharray", totalLength + "," + totalLength)
+                    .style("stroke-dashoffset", totalLength)
+                    .transition()
+                    .duration(2000) // Slower animation
+                    .ease(d3.easeQuadInOut)
+                    .style("stroke-dashoffset", 0)
+                    .style("opacity", 1)
+                    .on("end", function() {
+                        d3.select(this).transition()
+                            .duration(1000)
+                            .style("opacity", 0)
+                            .remove();
+                    });
+    
+                // Add flowing particles
+                const numParticles = 3;
+                for (let i = 0; i < numParticles; i++) {
+                    const particle = svg.append("circle")
+                        .attr("r", getParticleRadius(attack.severity))
+                        .attr("fill", attackColors[attack.severity]);
+    
+                    particle.transition()
+                        .duration(2000) // Slower animation
+                        .ease(d3.easeQuadInOut)
+                        .attrTween("transform", translateAlong(line.node()))
+                        .style("opacity", function(t) {
+                            return Math.sin(t * Math.PI);
+                        })
+                        .on("end", function() { d3.select(this).remove(); });
+                }
+    
+                // Add expanding ring at destination
+                svg.append("circle")
+                    .attr("cx", destProjected[0])
+                    .attr("cy", destProjected[1])
+                    .attr("r", 0)
+                    .attr("fill", "none")
+                    .attr("stroke", attackColors[attack.severity])
+                    .attr("stroke-width", 2)
+                    .attr("opacity", 0.8)
+                    .transition()
+                    .duration(2000) // Slower animation
+                    .attr("r", 50)
+                    .attr("opacity", 0)
+                    .remove();
+    
+                addToEventLog(attack);
+            }
+    
+            function getStrokeWidth(severity) {
+                switch(severity) {
+                    case 'low': return 1;
+                    case 'medium': return 2;
+                    case 'high': return 3;
+                    case 'critical': return 4;
+                    default: return 2;
+                }
+            }
+    
+            function getParticleRadius(severity) {
+                switch(severity) {
+                    case 'low': return 1;
+                    case 'medium': return 2;
+                    case 'high': return 3;
+                    case 'critical': return 4;
+                    default: return 2;
+                }
+            }
+    
+            function translateAlong(path) {
+                const l = path.getTotalLength();
+                return function(d, i, a) {
+                    return function(t) {
+                        const p = path.getPointAtLength(t * l);
+                        return "translate(" + p.x + "," + p.y + ")";
+                    };
+                };
+            }
+    
+            function addToEventLog(attack) {
+                const logContent = document.getElementById('log-content');
+                const eventItem = document.createElement('div');
+                eventItem.className = 'event-item';
+    
+                const severityClass = getSeverityClass(attack.severity);
+                getFlagSrc(attack.d_co).then(flagSrc => {
+                    eventItem.innerHTML = `
+                        <div class="event-type">${attack.a_n}</div>
+                        <div class="event-severity ${severityClass}">${attack.severity}</div>
+                        <div class="event-location"><img src="${flagSrc}" class="flag" alt="${attack.d_co} flag"> ${attack.d_co}</div>
+                    `;
+                    logContent.insertBefore(eventItem, logContent.firstChild);
+    
+                    if (logContent.children.length > 15) {
+                        logContent.removeChild(logContent.lastChild);
+                    }
+                });
+            }
+    
+            function getSeverityClass(severity) {
+                switch(severity.toLowerCase()) {
+                    case 'low': return 'severity-low';
+                    case 'medium': return 'severity-medium';
+                    case 'high': return 'severity-high';
+                    case 'critical': return 'severity-critical';
+                    default: return '';
+                }
+            }
+    
+            function getFlagSrc(countryCode) {
+                const baseUrl = 'https://flagcdn.com/w20/';
+                const fallbackUrl = 'https://flagcdn.com/w20/xx.png'; // Generic flag for unknown country codes
+                
+                if (!countryCode || typeof countryCode !== 'string') {
+                    return Promise.resolve(fallbackUrl);
+                }
+                
+                const code = countryCode.toLowerCase();
+                const flagUrl = `${baseUrl}${code}.png`;
+                
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.onload = () => resolve(flagUrl);
+                    img.onerror = () => resolve(fallbackUrl);
+                    img.src = flagUrl;
+                });
+            }
+    
+            const eventSource = new EventSource('https://threatmap-api.checkpoint.com/ThreatMap/api/feed');
+    
+            eventSource.addEventListener('attack', function(event) {
+                try {
+                    const data = JSON.parse(event.data);
+    
+                    // Map attack count (a_c) to severity
+                    let severity;
+                    if (data.a_c >= 30) {
+                        severity = 'critical';
+                    } else if (data.a_c >= 10) {
+                        severity = 'high';
+                    } else if (data.a_c >= 5) {
+                        severity = 'medium';
+                    } else {
+                        severity = 'low';
+                    }
+    
+                    // Construct attack object with necessary properties
+                    const attack = {
+                        a_t: data.a_t,
+                        a_n: data.a_n,
+                        severity: severity,
+                        s_co: data.s_co,
+                        d_co: data.d_co,
+                        s_lo: data.s_lo,
+                        s_la: data.s_la,
+                        d_lo: data.d_lo,
+                        d_la: data.d_la
+                    };
+    
+                    // Add the attack to the map
+                    addAttack(attack);
+                } catch (error) {
+                    console.error('Error parsing attack event data:', error);
+                }
+            });
+    
+            eventSource.addEventListener('counter', function(event) {
+                try {
+                    const data = JSON.parse(event.data);
+                    // Handle counter data if needed
+                    // For example, update statistics or UI elements
+                    console.log('Counter data received:', data);
+                } catch (error) {
+                    console.error('Error parsing counter event data:', error);
+                }
+            });
+    
+            eventSource.onerror = function(err) {
+                console.error('EventSource encountered an error:', err);
+                // Optionally, you can implement reconnection logic here
+            };
+    
+            // Remove all offline simulation code
+        </script>
+    </body>
+    </html>
