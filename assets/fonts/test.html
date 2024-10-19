@@ -351,7 +351,9 @@
                 });
             }
     
-            const eventSource = new EventSource('https://threatmap-api.checkpoint.com/ThreatMap/api/feed');
+            const corsProxy = 'https://corsproxy.io/?';
+            const apiUrl = 'https://threatmap-api.checkpoint.com/ThreatMap/api/feed';
+            const eventSource = new EventSource(corsProxy + encodeURIComponent(apiUrl));
     
             eventSource.addEventListener('attack', function(event) {
                 try {
