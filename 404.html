@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: monospace;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .space-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stars {
+            position: fixed;
+            width: 1px;
+            height: 1px;
+            background: #fff;
+            animation: starTwinkle 1s infinite;
+        }
+
+        @keyframes starTwinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .error-content {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        .error-title {
+            font-size: 6em;
+            color: #fff;
+            text-shadow: 0 0 10px #fff,
+                         0 0 20px #fff,
+                         0 0 30px #fff;
+            margin-bottom: 1rem;
+        }
+
+        .error-message {
+            font-size: 1.2em;
+            margin: 20px 0;
+            opacity: 0.8;
+        }
+
+        .home-button {
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+            font-family: monospace;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+
+        .home-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            text-shadow: 0 0 5px #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="space-container">
+        <div class="error-content">
+            <h1 class="error-title">404</h1>
+            <p class="error-message">Page not found</p>
+            <a href="/" class="home-button">Return to Homepage</a>
+        </div>
+    </div>
+
+    <script>
+        function createStars() {
+            const container = document.querySelector('.space-container');
+            for(let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'stars';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                container.appendChild(star);
+            }
+        }
+
+        createStars();
+    </script>
+</body>
+</html>
